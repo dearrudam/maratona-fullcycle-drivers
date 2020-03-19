@@ -11,10 +11,10 @@ RUN GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o /go/bin/drivers ./cmd/d
 # STEP 2 build a small image
 ############################
 FROM scratch
+RUN mkdir -p /go/bin/
+WORKDIR  /go/bin/
 COPY --from=builder /go/bin/drivers /go/bin/drivers
 COPY --from=builder /go/src/github.com/dearrudam/maratona-fullcycle-drivers/.env /go/bin/.env
-COPY --from=builder /go/src/github.com/dearrudam/maratona-fullcycle-drivers/.env .
 COPY --from=builder /go/src/github.com/dearrudam/maratona-fullcycle-drivers/drivers.json /go/bin/drivers.json
-COPY --from=builder /go/src/github.com/dearrudam/maratona-fullcycle-drivers/drivers.json .
 # Run the hello binary.
 ENTRYPOINT ["/go/bin/drivers"]
