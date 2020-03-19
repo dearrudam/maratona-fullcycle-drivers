@@ -1,5 +1,8 @@
 image: gitpod/workspace-full
 
+ports:
+  - port: 8081
+
 tasks:
   - init: go get -v -t -d ./...
 
